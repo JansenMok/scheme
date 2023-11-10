@@ -34,6 +34,31 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     else:
         # BEGIN PROBLEM 3
         "*** YOUR CODE HERE ***"
+        # shallow_expr = something
+        # if expr is 
+        # if expr.rest.first is not Pair:
+        #     return scheme_apply(env.lookup(expr.first), expr.rest, env)
+        # return scheme_eval(expr.rest.first)
+        # return scheme_apply(scheme_eval(expr.first), scheme_eval
+        # return scheme_eval(expr.first, env).py_func(2, 69)
+        
+        # attempt 2
+        # return scheme_apply(scheme_eval(expr.first, env), Pair(69, Pair(69, nil)), env)
+        # if type(expr) is int:
+        #     return expr
+        # return scheme_eval(Pair(69, nil), env)
+        # return 0
+        # if expr.rest.first is not Pair:
+        # if type(expr.first) is str:
+        #     return scheme_eval(expr, env)
+        # return expr.map(lambda pair: scheme_eval(pair, env))
+
+        # attempt 3
+        operator = scheme_eval(first, env)
+        operands = rest.map(lambda operand: scheme_eval(operand, env))
+        # print(operands)
+        # print()
+        return scheme_apply(operator, operands, env)
         # END PROBLEM 3
 
 def scheme_apply(procedure, args, env):
@@ -65,7 +90,8 @@ def scheme_apply(procedure, args, env):
             # return procedure(2, 2)
             # print(*args_list)
             # print(procedure.py_func(2, 2))
-            print(procedure.py_func(*args_list))
+            # print(procedure.py_func(*args_list))
+            return procedure.py_func(*args_list)
             ## END PROBLEM 2
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
