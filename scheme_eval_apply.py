@@ -45,11 +45,28 @@ def scheme_apply(procedure, args, env):
     if isinstance(procedure, BuiltinProcedure):
         # BEGIN PROBLEM 2
         "*** YOUR CODE HERE ***"
+        cursor = args
+        args_list = []
+        while cursor is not nil:
+            args_list.append(cursor.first)
+            cursor = cursor.rest
+        if procedure.need_env:
+            args_list.append(env)
         # END PROBLEM 2
         try:
             # BEGIN PROBLEM 2
             "*** YOUR CODE HERE ***"
-            # END PROBLEM 2
+            # def get_fucked(args):
+            #     if args.rest is nil:
+            #         return args.first
+            #     return args.first, get_fucked(args.rest)
+
+            # return procedure(args.first, args.rest.first)
+            # return procedure(2, 2)
+            # print(*args_list)
+            # print(procedure.py_func(2, 2))
+            print(procedure.py_func(*args_list))
+            ## END PROBLEM 2
         except TypeError as err:
             raise SchemeError('incorrect number of arguments: {0}'.format(procedure))
     elif isinstance(procedure, LambdaProcedure):
