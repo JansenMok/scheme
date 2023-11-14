@@ -59,6 +59,17 @@ def do_quote_form(expressions, env):
     validate_form(expressions, 1, 1)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    # attempt 1
+    # print(expressions)
+    # return expressions
+
+    # attempt 2
+    if expressions.rest is nil:
+        return expressions.first
+    if expressions.first.rest is nil:
+        # return expressions.first.first
+        return f"Pair({expressions.first.first}, nil)"
+    return f"Pair('{expressions.first.first}', {do_quote_form(Pair(expressions.first.rest, nil), env)})"
     # END PROBLEM 5
 
 def do_begin_form(expressions, env):
