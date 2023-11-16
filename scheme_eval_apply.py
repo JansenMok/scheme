@@ -98,6 +98,9 @@ def scheme_apply(procedure, args, env):
     elif isinstance(procedure, LambdaProcedure):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
+        # new_lambda_frame = env.make_child_frame(args.first, BODY)
+        new_lambda_frame = env.make_child_frame(procedure.formals, args)
+        APPLY THE PROCEDURE ON ARGS LIKE MAYBE MAP IDK
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11
