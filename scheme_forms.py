@@ -119,8 +119,11 @@ def do_lambda_form(expressions, env):
     # return isinstance(fuck, LambdaProcedure)
     
     # attempt 4 YOU CANT BE SHITTING ME RIGHT LMAO
-    body = expressions.rest
-    return LambdaProcedure(formals, body, env)
+    # body = expressions.rest
+    # return LambdaProcedure(formals, body, env)
+    
+    return LambdaProcedure(formals, expressions.rest, env)
+    # return expressions.rest
     # END PROBLEM 7
 
 def do_if_form(expressions, env):

@@ -100,7 +100,12 @@ def scheme_apply(procedure, args, env):
         "*** YOUR CODE HERE ***"
         # new_lambda_frame = env.make_child_frame(args.first, BODY)
         new_lambda_frame = env.make_child_frame(procedure.formals, args)
-        APPLY THE PROCEDURE ON ARGS LIKE MAYBE MAP IDK
+        # APPLY THE PROCEDURE ON ARGS LIKE MAYBE MAP IDK
+        # return new_lambda_frame.lookup('x')
+        # return scheme_eval(procedure.body, new_lambda_frame)
+        return eval_all(procedure.body, new_lambda_frame)
+        # return eval_all(procedure.body, env.make_child_frame(procedure.formals, args))
+        # return do_lambda
         # END PROBLEM 9
     elif isinstance(procedure, MuProcedure):
         # BEGIN PROBLEM 11

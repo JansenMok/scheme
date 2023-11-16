@@ -66,7 +66,8 @@ class Frame:
         "*** YOUR CODE HERE ***"
         new_child_frame = Frame(self)
         while formals is not nil:
-            new_child_frame.bindings[formals.first] = vals.first
+            # new_child_frame.bindings[formals.first] = vals.first
+            new_child_frame.define(formals.first, vals.first)
             formals = formals.rest
             vals = vals.rest
         return new_child_frame

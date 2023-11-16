@@ -40,10 +40,37 @@ global_frame = create_global_frame()
 formals = Pair('fuck', nil)
 vals = Pair(69, nil)
 new_frame = global_frame.make_child_frame(formals, vals)
-# print(new_frame.parent)
-print(new_frame.lookup('fuck'))
-print(global_frame.lookup('fuck'))
+# # print(new_frame.parent)
+# print(new_frame.lookup('fuck'))
+print(new_frame.bindings)
+# print(global_frame.lookup('fuck'))
 
 # global_frame = create_global_frame()
 # frame = global_frame.make_child_frame(nil, nil)
 # print(frame.parent is global_frame)
+
+# PROBLEM 9 DEBUGGING
+import math
+import numbers
+import operator
+import sys
+
+# from pair import Pair, nil, repl_str
+from scheme_reader import *
+from scheme_eval_apply import *
+from scheme_classes import *
+from scheme_utils import *
+import builtins
+from pair import *
+import sys
+from scheme_utils import *
+from ucb import main, trace
+import scheme_forms
+from scheme_builtins import *
+import numbers
+import sys
+import os
+from scheme_forms import *
+from scheme_builtins import *
+
+do_define_form(read_line(""))
