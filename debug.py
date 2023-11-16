@@ -31,5 +31,19 @@ from scheme_reader import *
 # print(do_quote_form(read_line("((+ x 2))"), env))
 # print(read_line("((+ x 2))"))
 
-expr = Pair(Pair('+', Pair('x', Pair(2, nil))), nil)
-print(do_quote_form(expr, env))
+# expr = Pair(Pair('+', Pair('x', Pair(2, nil))), nil)
+# print(do_quote_form(expr, env))
+
+# PROBLEM 8 DEBUGGING
+from scheme_classes import *
+global_frame = create_global_frame()
+formals = Pair('fuck', nil)
+vals = Pair(69, nil)
+new_frame = global_frame.make_child_frame(formals, vals)
+# print(new_frame.parent)
+print(new_frame.lookup('fuck'))
+print(global_frame.lookup('fuck'))
+
+# global_frame = create_global_frame()
+# frame = global_frame.make_child_frame(nil, nil)
+# print(frame.parent is global_frame)
