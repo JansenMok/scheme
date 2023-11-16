@@ -96,6 +96,31 @@ def do_lambda_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 7
     "*** YOUR CODE HERE ***"
+    # attempt 1
+    # body = expressions.rest
+    # # return f'(lambda {expressions})'
+    # lambda_expression = Pair('lambda', expressions)
+    # lambda_expression.formals = formals
+    # lambda_expression.body = body
+    # return lambda_expression
+    
+    # attempt 2
+    # body = expressions.rest
+    # lambda_expression = lambda formals: body
+    # lambda_expression.formals = formals
+    # lambda_expression.body = body
+    # # print(Pair('lambda', expressions))
+    # # return lambda_expression
+    # return isinstance(lambda_expression, LambdaProcedure)
+
+    # attempt 3
+    # fuck = lambda x: x
+    # fuck = Pair('lambda', Pair('x', Pair(Pair('x', nil), nil)))
+    # return isinstance(fuck, LambdaProcedure)
+    
+    # attempt 4 YOU CANT BE SHITTING ME RIGHT LMAO
+    body = expressions.rest
+    return LambdaProcedure(formals, body, env)
     # END PROBLEM 7
 
 def do_if_form(expressions, env):
