@@ -122,7 +122,19 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 6
-    return scheme_eval(expressions.first, env) # replace this with lines of your own code
+    # return scheme_eval(expressions.first, env) # replace this with lines of your own code
+
+    if expressions is nil:
+        return None
+    evaluated_expressions = expressions.map(lambda pair: scheme_eval(pair, env))
+    cursor = evaluated_expressions
+    while cursor.rest is not nil:
+        cursor = cursor.rest
+    return cursor.first
+
+    # test_expressions = Pair(Pair('+', Pair(1, Pair(2, nil))), Pair(2, nil))
+    # evaluated = test_expressions.map(lambda pair: scheme_eval(pair, env))
+    # return evaluated
     # END PROBLEM 6
 
 
