@@ -136,11 +136,16 @@ def eval_all(expressions, env):
 
     if expressions is nil:
         return None
-    evaluated_expressions = expressions.map(lambda pair: scheme_eval(pair, env))
-    cursor = evaluated_expressions
-    while cursor.rest is not nil:
-        cursor = cursor.rest
-    return cursor.first
+    # evaluated_expressions = expressions.map(lambda pair: scheme_eval(pair, env))
+    evaluated_expressions = scheme_eval(expressions.first, env)
+    # cursor = evaluated_expressions
+    # while cursor.rest is not nil:
+    #     cursor = cursor.rest
+    # return cursor.first
+    if expressions.rest is nil:
+        return evaluated_expressions
+    else:
+        return eval_all(expressions.rest, env)
 
     # test_expressions = Pair(Pair('+', Pair(1, Pair(2, nil))), Pair(2, nil))
     # evaluated = test_expressions.map(lambda pair: scheme_eval(pair, env))

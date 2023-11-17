@@ -37,8 +37,11 @@ def do_define_form(expressions, env):
         validate_form(expressions, 2, 2) # Checks that expressions is a list of length exactly 2
         # BEGIN PROBLEM 4
         "*** YOUR CODE HERE ***"
-        env.bindings[expressions.first] = scheme_eval(expressions.rest.first, env)
-        return expressions.first
+        # env.bindings[expressions.first] = scheme_eval(expressions.rest.first, env)
+        # return expressions.first
+        value = scheme_eval(expressions.rest.first, env)
+        env.define(signature, value)
+        return signature
         # END PROBLEM 4
     elif isinstance(signature, Pair) and scheme_symbolp(signature.first):
         # defining a named procedure e.g. (define (f x y) (+ x y))
@@ -52,7 +55,9 @@ def do_define_form(expressions, env):
         symbol = signature.first
         formals = signature.rest
         body = expressions.rest
-        env.bindings[symbol] = do_lambda_form(Pair(formals, body), env)
+        validate_formals(formals)
+        env.define(symbol, LambdaProcedure(formals, body, env))
+        # env.bindings[symbol] = do_lambda_form(Pair(formals, body), env)
         return symbol
         # END PROBLEM 10
     else:
@@ -74,12 +79,13 @@ def do_quote_form(expressions, env):
     # return expressions
 
     # attempt 2
-    if expressions.rest is nil:
-        return expressions.first
-    if expressions.first.rest is nil:
-        # return expressions.first.first
-        return f"Pair({expressions.first.first}, nil)"
-    return f"Pair('{expressions.first.first}', {do_quote_form(Pair(expressions.first.rest, nil), env)})"
+    # if expressions.rest is nil:
+    #     return expressions.first
+    # if expressions.first.rest is nil:
+    #     # return expressions.first.first
+    #     return f"Pair({expressions.first.first}, nil)"
+    # return f"Pair('{expressions.first.first}', {do_quote_form(Pair(expressions.first.rest, nil), env)})"
+    return expressions.first
     # END PROBLEM 5
 
 def do_begin_form(expressions, env):
@@ -167,52 +173,63 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
-    def is_zero(parameter):
-        if type(parameter) == int and parameter == 0:
-            return True
-        return False
+    # def is_zero(parameter):
+    #     if type(parameter) == int and parameter == 0:
+    #         return True
+    #     return False
+
+    # if expressions is nil:
+    #     return True
+    # if expressions.rest is nil:
+    #     return scheme_eval(expressions.first, env)
+
+    # parameter1 = expressions.first
+    # parameter2 = expressions.rest.first
+    # if type(parameter1) != bool:
+    #     parameter1 = scheme_eval(parameter1, env)
+    # if type(parameter2) != bool:
+    #     parameter2 = scheme_eval(parameter2, env)
+    
+    # if expressions.rest.rest is not nil:
+    #     # if (parameter1 and parameter2) == True and type(parameter1) == int and parameter1 == 0 and type(parameter2) == int and parameter2 == 0:
+    #     #     return do_and_form(expressions.rest.rest, env)
+
+
+    #     # not good code
+    #     # if (not_zero(parameter1) and not_zero(parameter2)) and not (parameter1 and parameter2):
+    #     #     return parameter1 and parameter2
+    #     # if not not_zero(parameter2):
+    #     #     return parameter2
+
+    #     if is_zero(parameter1) and parameter2:
+    #         # return do_and_form(Pair(parameter2, expressions.rest.rest), env)
+    #         return do_and_form(expressions.rest, env)
+    #     if is_zero(parameter1) and not parameter2:
+    #         return parameter2
+
+    #     if is_zero(parameter2) and parameter1:
+    #         return parameter2
+    #     if is_zero(parameter2) and not parameter1:
+    #         return parameter1
+
+    #     if not (parameter1 and parameter2):
+    #        return parameter1 and parameter2
+
+
+    #     return do_and_form(Pair(parameter1 and parameter2, expressions.rest.rest), env)
+    # return parameter1 and parameter2
+    # return parameter1 and parameter2
 
     if expressions is nil:
         return True
-    if expressions.rest is nil:
-        return scheme_eval(expressions.first, env)
-
-    parameter1 = expressions.first
-    parameter2 = expressions.rest.first
-    if type(parameter1) != bool:
-        parameter1 = scheme_eval(parameter1, env)
-    if type(parameter2) != bool:
-        parameter2 = scheme_eval(parameter2, env)
-    
-    if expressions.rest.rest is not nil:
-        # if (parameter1 and parameter2) == True and type(parameter1) == int and parameter1 == 0 and type(parameter2) == int and parameter2 == 0:
-        #     return do_and_form(expressions.rest.rest, env)
-
-
-        # not good code
-        # if (not_zero(parameter1) and not_zero(parameter2)) and not (parameter1 and parameter2):
-        #     return parameter1 and parameter2
-        # if not not_zero(parameter2):
-        #     return parameter2
-
-        if is_zero(parameter1) and parameter2:
-            # return do_and_form(Pair(parameter2, expressions.rest.rest), env)
+    value = scheme_eval(expressions.first, env)
+    if is_scheme_true(value):
+        if expressions.rest is nil:
+            return value
+        else:
             return do_and_form(expressions.rest, env)
-        if is_zero(parameter1) and not parameter2:
-            return parameter2
-
-        if is_zero(parameter2) and parameter1:
-            return parameter2
-        if is_zero(parameter2) and not parameter1:
-            return parameter1
-
-        if not (parameter1 and parameter2):
-           return parameter1 and parameter2
-
-
-        return do_and_form(Pair(parameter1 and parameter2, expressions.rest.rest), env)
-    return parameter1 and parameter2
-    # return parameter1 and parameter2
+    else:
+        return False
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
@@ -284,7 +301,7 @@ def do_or_form(expressions, env):
 
 
 
-    if expressions == nil:
+    if expressions is nil:
         return False
     cursor = scheme_eval(expressions.first, env)
     if is_scheme_false(cursor):
@@ -323,7 +340,7 @@ def do_cond_form(expressions, env):
                 return eval_all(clause.rest, env)
             
             
-            return clause.rest.first
+            # return clause.rest.first
             # END PROBLEM 13
         expressions = expressions.rest
 
@@ -348,6 +365,16 @@ def make_let_frame(bindings, env):
     names = vals = nil
     # BEGIN PROBLEM 14
     "*** YOUR CODE HERE ***"
+    # names = Pair(bindings.first.first, nil)
+    # vals = Pair(bindings.first.rest, nil)
+    cursor = bindings
+    while cursor is not nil:
+       front = cursor.first
+       validate_form(front, 2, 2)
+       names = Pair(front.first, names)
+       vals = Pair(eval_all(front.rest, env), vals)
+       cursor = cursor.rest
+    validate_formals(names)
     # END PROBLEM 14
     return env.make_child_frame(names, vals)
 
