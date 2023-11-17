@@ -47,10 +47,11 @@ def do_define_form(expressions, env):
         # (define signature.first (lambda signature.rest expressions.rest))
         # Pair("define", Pair(signature.first, Pair(Pair("lambda", Pair(signature.rest, Pair(expressions.rest))), nil)))
         # return do_define_form(Pair("define", Pair(signature.first, Pair(Pair("lambda", Pair(signature.rest, Pair(expressions.rest, nil))), nil))), env)
+        
+        # attempt 2
         symbol = signature.first
         formals = signature.rest
         body = expressions.rest
-
         env.bindings[symbol] = do_lambda_form(Pair(formals, body), env)
         return symbol
         # END PROBLEM 10
