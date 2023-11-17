@@ -167,10 +167,15 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    def is_zero(parameter):
+        if type(parameter) == int and parameter == 0:
+            return True
+        return False
+
     if expressions is nil:
         return True
     if expressions.rest is nil:
-        return expressions.first
+        return scheme_eval(expressions.first, env)
 
     parameter1 = expressions.first
     parameter2 = expressions.rest.first
@@ -183,10 +188,6 @@ def do_and_form(expressions, env):
         # if (parameter1 and parameter2) == True and type(parameter1) == int and parameter1 == 0 and type(parameter2) == int and parameter2 == 0:
         #     return do_and_form(expressions.rest.rest, env)
 
-        def is_zero(parameter):
-            if type(parameter) == int and parameter == 0:
-                return True
-            return False
 
         # not good code
         # if (not_zero(parameter1) and not_zero(parameter2)) and not (parameter1 and parameter2):
@@ -230,6 +231,69 @@ def do_or_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    # def is_zero(parameter):
+    #     if type(parameter) == int and parameter == 0:
+    #         return True
+    #     return False
+    # # def i_hate_zero_or(parameter1, parameter2):
+    # #     if is_zero(parameter1):
+    # #         return parameter1
+    # #     if is_zero(parameter2) and parameter1:
+    # #         return parameter1
+    # #     if is_zero(parameter2) and not parameter1:
+    # #         return parameter2
+
+    # if expressions is nil:
+    #     return False
+    # if expressions.rest is nil:
+    #     return scheme_eval(expressions.first, env)
+
+    # parameter1 = expressions.first
+    # parameter2 = expressions.rest.first
+    # if type(parameter1) == Pair:
+    #     parameter1 = scheme_eval(parameter1, env)
+    # if type(parameter2) == Pair:
+    #     parameter2 = scheme_eval(parameter2, env)
+    # if parameter1:
+    #     return parameter1
+     
+
+
+    # if expressions.rest is not nil:
+    #     # fuck = i_hate_zero_or(parameter1, parameter2)
+    #     # if fuck is not None:
+    #     #     return fuck
+    #     if is_zero(parameter1):
+    #         return parameter1
+    #     if is_zero(parameter2) and parameter1:
+    #         return parameter1
+    #     if is_zero(parameter2) and not parameter1:
+    #         return parameter2
+
+    #     if not (parameter1 or parameter2):
+    #        return parameter1 or parameter2
+
+    #     return do_or_form(Pair(parameter1 or parameter2, expressions.rest.rest), env)
+    # # return i_hate_zero_or(parameter1, parameter2)
+    # return parameter1 or parameter2
+
+
+
+
+
+
+
+
+    if expressions == nil:
+        return False
+    cursor = scheme_eval(expressions.first, env)
+    if is_scheme_false(cursor):
+        if expressions.rest is nil:
+            return cursor
+        return do_or_form(expressions.rest, env)
+    else:
+        return cursor
+
     # END PROBLEM 12
 
 def do_cond_form(expressions, env):
