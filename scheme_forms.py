@@ -314,6 +314,16 @@ def do_cond_form(expressions, env):
         if is_scheme_true(test):
             # BEGIN PROBLEM 13
             "*** YOUR CODE HERE ***"
+            if clause.rest is nil:
+                return test
+            # if clause.rest.first.first == 'define':
+            # print(clause.rest)
+            # if clause.rest.first.first is nil:
+            else:
+                return eval_all(clause.rest, env)
+            
+            
+            return clause.rest.first
             # END PROBLEM 13
         expressions = expressions.rest
 
