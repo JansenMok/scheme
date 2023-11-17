@@ -99,7 +99,7 @@ def scheme_apply(procedure, args, env):
         # BEGIN PROBLEM 9
         "*** YOUR CODE HERE ***"
         # new_lambda_frame = env.make_child_frame(args.first, BODY)
-        new_lambda_frame = env.make_child_frame(procedure.formals, args)
+        new_lambda_frame = procedure.env.make_child_frame(procedure.formals, args)
         # APPLY THE PROCEDURE ON ARGS LIKE MAYBE MAP IDK
         # return new_lambda_frame.lookup('x')
         # return scheme_eval(procedure.body, new_lambda_frame)
