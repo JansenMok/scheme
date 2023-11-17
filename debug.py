@@ -73,4 +73,4 @@ import os
 from scheme_forms import *
 from scheme_builtins import *
 
-do_define_form(read_line(""))
+do_define_form()
