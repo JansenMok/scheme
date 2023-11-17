@@ -167,6 +167,51 @@ def do_and_form(expressions, env):
     """
     # BEGIN PROBLEM 12
     "*** YOUR CODE HERE ***"
+    if expressions is nil:
+        return True
+    if expressions.rest is nil:
+        return expressions.first
+
+    parameter1 = expressions.first
+    parameter2 = expressions.rest.first
+    if type(parameter1) != bool:
+        parameter1 = scheme_eval(parameter1, env)
+    if type(parameter2) != bool:
+        parameter2 = scheme_eval(parameter2, env)
+    
+    if expressions.rest.rest is not nil:
+        # if (parameter1 and parameter2) == True and type(parameter1) == int and parameter1 == 0 and type(parameter2) == int and parameter2 == 0:
+        #     return do_and_form(expressions.rest.rest, env)
+
+        def is_zero(parameter):
+            if type(parameter) == int and parameter == 0:
+                return True
+            return False
+
+        # not good code
+        # if (not_zero(parameter1) and not_zero(parameter2)) and not (parameter1 and parameter2):
+        #     return parameter1 and parameter2
+        # if not not_zero(parameter2):
+        #     return parameter2
+
+        if is_zero(parameter1) and parameter2:
+            # return do_and_form(Pair(parameter2, expressions.rest.rest), env)
+            return do_and_form(expressions.rest, env)
+        if is_zero(parameter1) and not parameter2:
+            return parameter2
+
+        if is_zero(parameter2) and parameter1:
+            return parameter2
+        if is_zero(parameter2) and not parameter1:
+            return parameter1
+
+        if not (parameter1 and parameter2):
+           return parameter1 and parameter2
+
+
+        return do_and_form(Pair(parameter1 and parameter2, expressions.rest.rest), env)
+    return parameter1 and parameter2
+    # return parameter1 and parameter2
     # END PROBLEM 12
 
 def do_or_form(expressions, env):
