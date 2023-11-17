@@ -44,6 +44,15 @@ def do_define_form(expressions, env):
         # defining a named procedure e.g. (define (f x y) (+ x y))
         # BEGIN PROBLEM 10
         "*** YOUR CODE HERE ***"
+        # (define signature.first (lambda signature.rest expressions.rest))
+        # Pair("define", Pair(signature.first, Pair(Pair("lambda", Pair(signature.rest, Pair(expressions.rest))), nil)))
+        # return do_define_form(Pair("define", Pair(signature.first, Pair(Pair("lambda", Pair(signature.rest, Pair(expressions.rest, nil))), nil))), env)
+        symbol = signature.first
+        formals = signature.rest
+        body = expressions.rest
+
+        env.bindings[symbol] = do_lambda_form(Pair(formals, body), env)
+        return symbol
         # END PROBLEM 10
     else:
         bad_signature = signature.first if isinstance(signature, Pair) else signature
