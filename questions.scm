@@ -6,10 +6,38 @@
 ;; Problem 15
 ;; Returns a list of two-element lists
 (define (enumerate s)
-  ; BEGIN PROBLEM 15
-  'replace-this-line
-  )
-  ; END PROBLEM 15
+    ; BEGIN PROBLEM 15
+    ; (define (len-helper s i)
+    ;     (if (null? (cdr s))
+    ;         i
+    ;         (len-helper (cdr s) (+ i 1))
+    ;     )
+    ; )
+    (define (enumerate-helper s i)
+        (if (null? s)
+            ()
+            (if (null? (cdr s))
+                ; (list i (car s))
+                ; (list (list i (car s)) (enumerate-helper (cdr s) (+ i 1)))
+
+                ; (cons i_reverse (car s))
+                ; (enumerate-helper s (- i_reverse 1)
+
+                (cons (list i (car s)) nil)
+                (cons (list i (car s)) (enumerate-helper (cdr s) (+ i 1)))
+                ; (if (zero? i)
+                ;     (cons (list (car s) i) (cons (enumerate-helper (cdr s) (+ i 1))))
+                ;     (list (car s) i) (cons (enumerate-helper (cdr s) (+ i 1)))
+                    ; (list (car s) i) (cons `(,enumerate-helper ,(cdr s) ,(+ i 1)))
+                ; )
+            )
+        )
+    )
+    ; (define i (len-helper s 0))
+    ; i
+    (enumerate-helper s 0)
+)
+    ; END PROBLEM 15
 
 ;; Problem 16
 
